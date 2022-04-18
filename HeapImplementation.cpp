@@ -102,7 +102,7 @@ void startProcess(mBlock *mem_block, pBlock *proc_block, int num)
 		
 		if(mem_block == NULL)
 		{
-			printf("\nNot enough space\n");
+			printf("\nNot enough space!!\n");
 			i--;
 			mem_block = mHead;
 			free(process);
@@ -229,6 +229,8 @@ void pTerminate (mBlock *mem_block, pBlock *proc_block, int num)
 
 int main()
 {
+
+	printf("Heap Implementation Using First Fit approach\n\n");
 	printf("What operations u want to perform \n\n");
 	
 	int choice;
@@ -249,7 +251,6 @@ int main()
 				{
 					printf("Enter number of memory blocks you want to add : ");
 					scanf("%d",&n);
-					
 					create_mBlock(mHead,n);
 					printf("\nMemory Blocks: ");
 					display_mBlocks(mHead);
@@ -288,11 +289,11 @@ int main()
 
 			default:
 				{
-					printf("\nNot Valied Number!!");
+					printf("\nNot Valid Number!!");
 					break;
 				}
 		}
 		printf("\n");
 
 	}while(choice!=4);
-}
+}		
