@@ -7,7 +7,7 @@ typedef struct p_node{
 	int serial_num;
 	struct p_node *prev;
 	struct p_node *next;
-}pBlock;
+} pBlock;
 
 pBlock *pHead = NULL;
 int count_pBlock = 1;
@@ -17,7 +17,7 @@ typedef struct m_node{
 	int serial_num;
 	struct m_node *prev;
 	struct m_node *next;
-}mBlock;
+} mBlock;
 
 mBlock *mHead = NULL;
 int count_mBlock = 1;
@@ -69,7 +69,7 @@ void create_mBlock(mBlock *mem_block, int num)
 	mem_block->next = NULL;
 }
 
-void startProcess(mBlock *mem_block, pBlock *proc_block, int num)
+void create_process (mBlock *mem_block, pBlock *proc_block, int num)
 {
 	if(pHead != NULL)
 	{
@@ -172,17 +172,17 @@ void rProcess(pBlock *proc_block)
 	display_pBlocks(pHead);
 }
 
-void pTerminate (mBlock *mem_block, pBlock *proc_block, int num)
+void pFree (mBlock *mem_block, pBlock *proc_block, int num)
 {
 	int i;
 	for(i=0; i<num; i++)
 	{
-		int terminate;
+		int FREE;
 		
-		printf("Enter the process number you want to terminate  ");
-		scanf("%d",&terminate);
+		printf("Enter the process number you want to free : ");
+		scanf("%d",&FREE);
 		
-		while(proc_block != NULL && proc_block->serial_num != terminate)
+		while(proc_block != NULL && proc_block->serial_num != FREE)
 		{
 			proc_block = proc_block->next;
 		}
@@ -229,23 +229,21 @@ void pTerminate (mBlock *mem_block, pBlock *proc_block, int num)
 
 int main()
 {
-
-	printf("Heap Implementation Using First Fit approach\n\n");
-	printf("What operations u want to perform \n\n");
+	printf("What operations you want to perform? \n");
 	
-	int choice;
+	int option;
 	do{
 		int n;
 		
-		printf("1: Create memory blocks\n");
-		printf("2: Allocate processes using First Fit\n");
-		printf("3: Free a process\n");
-		printf("4: Exit!!\n");
+		printf("1: Create memory blocks!!\n");
+		printf("2: Allocate processes!!\n");
+		printf("3: Free process!!\n");
+		printf("4: Exit!!\n\n");
 		
 		printf("Enter the action number : ");
-		scanf("%d",&choice);
+		scanf("%d",&option);
 		
-		switch(choice)
+		switch(option)
 		{
 			case 1:
 				{
@@ -261,7 +259,7 @@ int main()
 				{
 					printf("Enter the number of processes you want to start : ");
 					scanf("%d",&n);
-					startProcess(mHead, pHead, n);
+					create_process(mHead, pHead, n);
 					printf("\nMemory Blocks: ");
 					display_mBlocks(mHead);
 					printf("\nProcess Blocks: ");
@@ -271,9 +269,9 @@ int main()
 
 			case 3:
 				{
-					printf("Enter the number of processes you want to terminate : ");
+					printf("Enter the number of processes you want to free : ");
 					scanf("%d",&n);
-					pTerminate(mHead, pHead, n);
+					pFree(mHead, pHead, n);
 					printf("\nMemory Blocks: ");
 					display_mBlocks(mHead);
 					printf("\nProcess Blocks:  ");
@@ -295,5 +293,5 @@ int main()
 		}
 		printf("\n");
 
-	}while(choice!=4);
-}		
+	}while(option!=4);
+}
